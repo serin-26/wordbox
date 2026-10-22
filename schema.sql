@@ -1,0 +1,28 @@
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  picture TEXT NOT NULL DEFAULT '',
+  created INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS states (
+  user_id TEXT PRIMARY KEY,
+  data TEXT NOT NULL,
+  updated INTEGER NOT NULL
+);
+CREATE TABLE IF NOT EXISTS scores (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id TEXT NOT NULL,
+  game TEXT NOT NULL,
+  score INTEGER NOT NULL,
+  detail TEXT NOT NULL DEFAULT '',
+  created INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS scores_game_created ON scores (game, created);
+CREATE INDEX IF NOT EXISTS scores_user ON scores (user_id, created);
+CREATE TABLE IF NOT EXISTS usage (
+  user_id TEXT NOT NULL,
+  day INTEGER NOT NULL,
+  kind TEXT NOT NULL,
+  n INTEGER NOT NULL DEFAULT 0,
+  PRIMARY KEY (user_id, day, kind)
+);
